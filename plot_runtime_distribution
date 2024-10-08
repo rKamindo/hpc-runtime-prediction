@@ -1,0 +1,30 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def plot_runtime_distribution(runtimes):
+  runtimes_hours = np.array(runtimes) / 3600 
+
+  max_runtime = np.ceil(max(runtimes_hours))
+  
+  
+  plt.figure(figsize=(12, 6))
+  plt.hist(runtimes_hours, bins=133, edgecolor="black")
+
+  plt.yscale('log')
+
+  plt.xlabel('Runtime (hours)')
+  plt.ylabel('Number of jobs (log scale)')
+  plt.title('Runtime Distribution of Eagle Jobs')
+
+  median_runtime = np.median(runtimes_hours)
+  plt.axvline(x=median_runtime, color='r', linestyle="--", label=f'Median ({median_runtime:.2f} hours)')
+
+  plt.legend()
+
+  plt.tight_layout()
+  plt.show()
+
+df = pd.read_pickle("./data/processed_dataset")
+  
+plot_runtime_distribution(df['runtime'].values)
