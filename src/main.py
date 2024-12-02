@@ -21,7 +21,4 @@ train_loader, test_loader = prepare_data_for_transformer(df, tokenizer, train_sp
 
 model = BERTRegression(model_name)
 model.load_state_dict(torch.load('../best_model/best_model.pth', weights_only=True))
-model.eval()
-test_loss = eval_model(model, test_loader)
-print(f"Test Loss: {test_loss:.4f}")
-# train_model(model, train_loader, test_loader, num_epochs, learning_rate, lambda_reg, verbose)
+train_model(model, train_loader, test_loader, num_epochs, learning_rate, lambda_reg, verbose)
